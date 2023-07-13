@@ -1,0 +1,78 @@
+
+@base_url = http://localhost:8080/api/category
+
+
+### Happy path ###
+
+
+### Get all categories
+
+GET {{base_url}} HTTP/1.1
+
+### Get category by ID
+
+GET {{base_url}}/2 HTTP/1.1
+
+### Create category
+POST {{base_url}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Animals"
+}
+
+
+### Update category
+PUT {{base_url}}/6 HTTP/1.1
+Content-Type: application/json
+
+{   
+    "categoryId": 6,
+    "name": "Programming Languages"
+}
+
+
+### Delete category
+DELETE {{base_url}}/6 HTTP/1.1
+Content-Type: application/json
+
+
+### UNHAPPY PATH ###
+
+### Category Already exists
+POST {{base_url}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Sports"
+}
+
+### Cannot Update Category (Category not found)
+PUT {{base_url}}/8 HTTP/1.1
+Content-Type: application/json
+
+{   
+    "categoryId": 8,
+    "name": "Programming Languages"
+}
+
+###Cannout update to duplicate name
+PUT {{base_url}}/4 HTTP/1.1
+Content-Type: application/json
+
+{   
+    "categoryId": 4,
+    "name": "Music"
+}
+
+###Cannot Update without ID
+PUT {{base_url}}/4 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Sports"
+}
+
+### Cannot Delete Category because ID not found (404)
+DELETE {{base_url}}/8 HTTP/1.1
+Content-Type: application/json

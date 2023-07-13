@@ -1,0 +1,87 @@
+@base_url = http://localhost:8080
+
+POST {{base_url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "john@smith.com",
+    "password": "P@ssw0rd!"
+}
+
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidWctc2FmYXJpIiwic3ViIjoiam9obkBzbWl0aC5jb20iLCJhcHBfdXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJBRE1JTiIsImV4cCI6MTY4ODA1MTc1M30.Pp1D599AvGEJsAgBj4VT4UdlCOueaoJJQsqRkdGAXjg
+
+### find all tier lists
+GET {{base_url}}/api/tierlist/ HTTP/1.1
+
+### find tier lists by user
+GET {{base_url}}/api/tierlist/user/2 HTTP/1.1
+
+### find tier lists by category
+GET {{base_url}}/api/tierlist/category/1 HTTP/1.1
+
+### find by tier list Id
+GET {{base_url}}/api/tierlist/1 HTTP/1.1
+
+### add a tier list
+POST {{base_url}}/api/tierlist HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Disney Movies Tier List",
+    "timestamp": "2023-06-29T12:34:56Z",
+    "s_Tier": "[\"https://static.wikia.nocookie.net/tangledtheseries/images/3/33/Tangled.jpg/revision/latest?cb=20170329001931\"]",
+    "upvotes": 0,
+    "downvotes": 0,
+    "appUserId": 1,
+    "categoryId": 3
+}
+
+### update a tier list
+PUT {{base_url}}/api/tierlist/3 HTTP/1.1
+Content-Type: application/json
+
+{   
+    "tierListId": 3,
+    "name": "Disney and Pixar Movies Tier List",
+    "timestamp": "2023-06-29T12:34:56Z",
+    "s_Tier": "[\"https://static.wikia.nocookie.net/tangledtheseries/images/3/33/Tangled.jpg/revision/latest?cb=20170329001931\"]",
+    "upvotes": 0,
+    "downvotes": 0,
+    "appUserId": 1,
+    "categoryId": 3
+}
+
+### delete a tier list
+DELETE {{base_url}}/api/tierlist/3 HTTP/1.1
+
+### unhappy path ###
+
+### 400 (name is required)
+POST {{base_url}}/api/tierlist HTTP/1.1
+Content-Type: application/json
+
+{
+    "timestamp": "2023-06-29T12:34:56Z",
+    "s_Tier": "[\"https://static.wikia.nocookie.net/tangledtheseries/images/3/33/Tangled.jpg/revision/latest?cb=20170329001931\"]",
+    "upvotes": 0,
+    "downvotes": 0,
+    "appUserId": 1,
+    "categoryId": 3
+}
+
+### 409 (conflict because id to update not given)
+PUT {{base_url}}/api/tierlist/1 HTTP/1.1
+Content-Type: application/json
+
+{   
+    "name": "Disney and Pixar Movies Tier List",
+    "timestamp": "2023-06-29T12:34:56Z",
+    "s_Tier": "[\"https://static.wikia.nocookie.net/tangledtheseries/images/3/33/Tangled.jpg/revision/latest?cb=20170329001931\"]",
+    "upvotes": 0,
+    "downvotes": 0,
+    "appUserId": 1,
+    "categoryId": 3
+}
+
+### 404 (id does not exist)
+DELETE {{base_url}}/api/tierlist/999 HTTP/1.1

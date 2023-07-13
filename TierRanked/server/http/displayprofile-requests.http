@@ -1,0 +1,71 @@
+@base_url = http://18.217.22.92:8080
+
+# POST {{base_url}}/authenticate HTTP/1.1
+# Content-Type: application/json
+
+# {
+#     "username": "john@smith.com",
+#     "password": "P@ssw0rd!"
+# }
+
+# @token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidWctc2FmYXJpIiwic3ViIjoiam9obkBzbWl0aC5jb20iLCJhcHBfdXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJBRE1JTiIsImV4cCI6MTY4ODA1MTc1M30.Pp1D599AvGEJsAgBj4VT4UdlCOueaoJJQsqRkdGAXjg
+
+###
+GET {{base_url}}/api/display_profile HTTP/1.1
+
+###
+GET {{base_url}}/api/display_profile/2 HTTP/1.1
+
+###
+GET {{base_url}}/api/display_profile/username/john@smith.com HTTP/1.1
+
+###
+POST {{base_url}}/api/display_profile HTTP/1.1
+Content-Type: application/json
+
+{
+    "picture":"random.url.for-testing",
+    "bio":"I am the coolest guy - said the not very cool guy",
+    "username": "john@smith.com",
+    "appUserId": 1
+}
+
+# HTTP/1.1 201 
+# Vary: Origin, Access-Control-Request-Method, Access-Control-Request-Headers
+# X-Content-Type-Options: nosniff
+# X-XSS-Protection: 1; mode=block
+# Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+# Pragma: no-cache
+# Expires: 0
+# X-Frame-Options: DENY
+# Content-Type: application/json
+# Transfer-Encoding: chunked
+# Date: Fri, 30 Jun 2023 19:58:05 GMT
+# Connection: close
+
+# {
+#   "displayProfileId": 3,
+#   "picture": "random.url.for-testing",
+#   "bio": "I am the coolest guy - said the not very cool guy",
+#   "twitter": null,
+#   "instagram": null,
+#   "tiktok": null,
+#   "username": "who@ami.com",
+#   "appUserId": 11
+# }
+
+###
+PUT {{base_url}}/api/display_profile/2 HTTP/1.1
+Content-Type: application/json 
+
+{
+    "displayProfileId": 2,
+    "picture": "new-random.url-testing-update",
+    "bio": "I have learned I am not the coolest guy - still not cool, but they've got character development now",
+    "appUserId": 2
+}
+
+###
+DELETE {{base_url}}/api/display_profile/3 HTTP/1.1
+Content-Type: application/json
+
